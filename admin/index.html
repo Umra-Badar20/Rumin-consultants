@@ -158,7 +158,7 @@
                       <textarea readonly>{{ inquiry.message }}</textarea>
                     </td>
                     <td>
-                      {{ new Date(inquiry.createdAt).toLocaleDateString() }}
+                      {{ formatDate(inquiry.createdAt || inquiry.created_at) }}
                     </td>
                     <td>
                       <!-- <button

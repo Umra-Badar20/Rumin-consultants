@@ -1,5 +1,3 @@
-const { loginAdmin, logoutAdmin, getContacts, supabase } = window.ruminSupabase;
-
 const { createApp } = Vue;
 
 createApp({
@@ -38,10 +36,15 @@ createApp({
     }
   },
   methods: {
+    formatDate(value) {
+      if (!value) return 'N/A';
+      const date = new Date(value);
+      return Number.isNaN(date.getTime()) ? 'N/A' : date.toLocaleDateString();
+    },
     async login() {
       try {
         this.isLoading = true;
-        const result = await loginAdmin(this.loginData.username, this.loginData.password);
+        const result = await window.ruminSupabase.loginAdmin(this.loginData.username, this.loginData.password);
         
         if (!result.success) {
           throw new Error(result.error);
@@ -69,7 +72,7 @@ createApp({
       }
     },
     async logout() {
-      await logoutAdmin();
+      await window.ruminSupabase.logoutAdmin();
       this.authenticated = false;
       this.inquiries = [];
       
@@ -83,13 +86,17 @@ createApp({
     async fetchInquiries() {
       try {
         this.isLoading = true;
-        const result = await getContacts();
+        const result = await window.ruminSupabase.getContacts();
         
         if (!result.success) {
           throw new Error(result.error);
         }
 
-        this.inquiries = result.data || [];
+        this.inquiries = (result.data || []).map((inquiry) => ({
+          ...inquiry,
+          createdAt: inquiry.createdAt || inquiry.created_at,
+          englishTest: inquiry.englishTest || inquiry.english_test
+        }));
       } catch (error) {
         if (error.message.includes('Unauthorized')) {
           this.authenticated = false;
@@ -132,7 +139,7 @@ createApp({
             didOpen: () => Swal.showLoading()
           });
 
-          const { error } = await supabase
+          const { error } = await window.ruminSupabase.supabase
             .from('contacts')
             .delete()
             .eq('id', id);

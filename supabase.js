@@ -9,26 +9,35 @@ var supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey)
 
 async function loginAdmin(username, password) {
   try {
+    const safeUsername = String(username || '').trim()
+    const safePassword = String(password || '').trim()
+
     const { data, error } = await supabase
       .from('admins')
       .select('id, username, password')
-      .eq('username', username)
-      .single()
+      .eq('username', safeUsername)
+      .limit(1)
 
-    if (error || !data) {
+    if (error) {
+      throw new Error(error.message)
+    }
+
+    const admin = Array.isArray(data) ? data[0] : data
+
+    if (!admin) {
       throw new Error('Invalid username or password')
     }
 
-    const isPasswordValid = await verifyPassword(password, data.password)
+    const isPasswordValid = await verifyPassword(safePassword, admin.password)
     if (!isPasswordValid) {
       throw new Error('Invalid username or password')
     }
 
-    const token = btoa(`${data.id}:${data.username}:${Date.now()}`)
+    const token = btoa(`${admin.id}:${admin.username}:${Date.now()}`)
     localStorage.setItem('admin_token', token)
-    localStorage.setItem('admin_id', data.id)
+    localStorage.setItem('admin_id', admin.id)
 
-    return { success: true, token, adminId: data.id }
+    return { success: true, token, adminId: admin.id }
   } catch (error) {
     return { success: false, error: error.message }
   }
@@ -98,7 +107,7 @@ async function getContacts() {
 }
 
 async function verifyPassword(password, hash) {
-  return password === hash
+  return String(password || '').trim() === String(hash || '').trim()
 }
 
 window.ruminSupabase = {
