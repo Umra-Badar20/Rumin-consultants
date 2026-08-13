@@ -1,0 +1,18 @@
+{
+  "name": "visa-website-frontend",
+  "version": "1.0.0",
+  "description": "Visa website with Supabase backend",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.38.4",
+    "sweetalert2": "^11.21.0"
+  },
+  "devDependencies": {
+    "vite": "^8.2.1"
+  }
+}
