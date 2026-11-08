@@ -215,8 +215,8 @@
                     <input type="hidden" name="_captcha" value="false">
                     <input type="hidden" name="_template" value="table">
                     <input type="hidden" name="_autoresponse" value="Thank you for contacting RuMin Consultants!">
-                    <input type="hidden" id="emailSubject" name="_subject" value="New Contact Form Submission">
-                    <input type="hidden" id="submissionTimePakistan" name="Pakistan Submission Time">
+                    <input type="hidden" name="_subject" value="New Contact Form Submission">
+                    <input type="hidden" id="submissionTime" name="Submission Time">
                     <div class="row g-4">
                         <div class="col-lg-12 col-xl-6">
                             <div class="form-floating">
@@ -436,18 +436,10 @@
 
             try {
                 const form = document.getElementById('contactForm');
-                const pakistanTime = new Date(Date.now() + 5 * 60 * 60 * 1000);
-                const date = [
-                    pakistanTime.getUTCFullYear(),
-                    String(pakistanTime.getUTCMonth() + 1).padStart(2, '0'),
-                    String(pakistanTime.getUTCDate()).padStart(2, '0')
-                ].join('-');
-                const hour24 = pakistanTime.getUTCHours();
-                const time = `${String(hour24 % 12 || 12).padStart(2, '0')}:${String(pakistanTime.getUTCMinutes()).padStart(2, '0')}:${String(pakistanTime.getUTCSeconds()).padStart(2, '0')} ${hour24 < 12 ? 'AM' : 'PM'}`;
-                const formattedPakistanTime = `${date} ${time} PKT (UTC+05:00)`;
-                document.getElementById('submissionTimePakistan').value = formattedPakistanTime;
-                document.getElementById('emailSubject').value =
-                    `New Contact Form Submission - ${formattedPakistanTime}`;
+                const submissionDate = new Date();
+                const deviceTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'device local time';
+                document.getElementById('submissionTime').value =
+                    `${submissionDate.toLocaleString()} (${deviceTimeZone})`;
                 const emailResponse = await fetch(form.action, {
                     method: 'POST',
                     body: new FormData(form),
