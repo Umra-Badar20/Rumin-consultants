@@ -65,10 +65,10 @@
                 <div class="col-lg-9 text-end text-lg-end  mb-lg-0">
                     <div class="d-flex justify-content-between">
                         <!-- <a target="_blank" href="mailto:ruminconsultantslimited@gmail.com" class="text-white me-4"><i class="fas fa-envelope text-secondary me-2"></i>ruminconsultantslimited@gmail.com</a> -->
-                        <a href="https://www.google.com/maps/search/FF-1143+Deans+Trade+Center+,+Peshawar,+Pakistan/@34.0013237,71.5427195,17z/data=!3m1!4b1?hl=en&entry=ttu&g_ep=EgoyMDI1MDQzMC4xIKXMDSoJLDEwMjExNDUzSAFQAw%3D%3D"
-                            target="_blank" class="text-white me-4"><i
+                        <a href="https://www.google.com/maps/search/?api=1&amp;query=Floor%20UG%2C%20Office%20No.%20366%2C%20Deans%20Trade%20Center%20Cantonment%20Peshawar%2C%20Peshawar%20Pakistan"
+                            target="_blank" rel="noopener noreferrer" class="text-white me-4"><i
                                 class="fas fa-map-marker-alt me-2 text-secondary "></i>
-                            First Floor Office no. 1143 Deans Trade Center Peshawar Cantt.</a>
+                            Floor UG, Office No. 366, Deans Trade Center Cantonment Peshawar, Peshawar Pakistan</a>
                         <a target="_blank"
                             href="https://api.whatsapp.com/send?phone=923139365284&text=I%20am%20interested!"
                             class="text-white me-0">
@@ -149,7 +149,7 @@
                         <i class="fas fa-map-marked-alt fa-4x text-primary bg-light p-3 rounded"></i>
                         <div class="ps-3">
                             <h5>Location</h5>
-                            <p>FF-1143 Deans Trade Center, Peshawar, Pakistan</p>
+                            <p>Floor UG, Office No. 366, Deans Trade Center Cantonment Peshawar, Peshawar Pakistan</p>
                         </div>
                     </div>
                     <div class="row g-3">
@@ -164,9 +164,8 @@
                                     </div>
                                     <div class="mb-3">
                                         <h6 class="mb-0">Email:</h6>
-                                        <a href="mailto:info@rumin.com" class="fs-5 text-primary">info@rumin.com</a>
-                                        <a href="mailto:contact@rumin.com"
-                                            class="fs-5 text-primary">contact@rumin.com</a>
+                                        <a href="mailto:Info@ruminconsultants.com" class="fs-5 text-primary">info@ruminconsultants.com</a>
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -181,8 +180,8 @@
                                         <a class="fs-5 text-primary">09.00 am to 06.00 pm</a>
                                     </div>
                                     <div class="mb-3">
-                                        <h6 class="mb-0">Vacation</h6>
-                                        <a class="fs-5 text-primary">Al Sunday is our vacation</a>
+                                        <h6 class="mb-0">Weekly Holiday</h6>
+                                        <a class="fs-5 text-primary">Sunday – Closed</a>
                                     </div>
                                 </div>
                             </div>
@@ -216,7 +215,8 @@
                     <input type="hidden" name="_captcha" value="false">
                     <input type="hidden" name="_template" value="table">
                     <input type="hidden" name="_autoresponse" value="Thank you for contacting RuMin Consultants!">
-                    <input type="hidden" name="_subject" value="New Contact Form Submission">
+                    <input type="hidden" id="emailSubject" name="_subject" value="New Contact Form Submission">
+                    <input type="hidden" id="submissionTimePakistan" name="Pakistan Submission Time">
                     <div class="row g-4">
                         <div class="col-lg-12 col-xl-6">
                             <div class="form-floating">
@@ -284,10 +284,17 @@
         </div>
         <div class="row g-4 justify-content-center px-5">
             <div class="col-12 pt-5 wow zoomIn" data-wow-delay="0.1s">
-                <div class="rounded h-100">
-                    <iframe class="rounded w-100" style="height: 500px;"
-                        src="//www.google.com/maps/embed?pb=!1m12!1m8!1m3!1d3307.657752013244!2d71.54271949981089!3d34.00132364635249!3m2!1i1024!2i768!4f13.1!2m1!1sFF-1143%20Deans%20Trade%20Center%20%2C%20Peshawar%2C%20Pakistan!5e0!3m2!1sen!2s!4v1748702574921!5m2!1sen!2s"
+                <div class="rounded h-100 position-relative">
+                    <iframe class="rounded w-100" style="height: 500px; pointer-events: none;"
+                        src="https://www.google.com/maps?q=Floor%20UG%2C%20Office%20No.%20366%2C%20Deans%20Trade%20Center%20Cantonment%20Peshawar%2C%20Peshawar%20Pakistan&amp;output=embed"
+                        title="Map showing Floor UG, Office No. 366, Deans Trade Center, Peshawar"
                         loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <a class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-end justify-content-center p-4"
+                        style="z-index: 1;" href="https://www.google.com/maps/search/?api=1&amp;query=Floor%20UG%2C%20Office%20No.%20366%2C%20Deans%20Trade%20Center%20Cantonment%20Peshawar%2C%20Peshawar%20Pakistan"
+                        target="_blank" rel="noopener noreferrer"
+                        aria-label="Open Floor UG, Office No. 366, Deans Trade Center Cantonment Peshawar, Peshawar Pakistan in Google Maps">
+                        <span class="btn btn-primary rounded-pill px-4 py-2"><i class="fas fa-map-marker-alt me-2"></i>Open in Google Maps</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -301,12 +308,12 @@
                 <div class="col-md-8 col-lg-8 col-xl-4">
                     <div class="footer-item d-flex flex-column">
                         <h4 class="text-secondary mb-4">Contact Info</h4>
-                        <a target="_blank"
-                            href="https://www.google.com/maps/search/FF-1143+Deans+Trade+Center+,+Peshawar,+Pakistan/@34.0013237,71.5427195,17z/data=!3m1!4b1?hl=en&entry=ttu&g_ep=EgoyMDI1MDQzMC4xIKXMDSoJLDEwMjExNDUzSAFQAw%3D%3D"><i
+                        <a target="_blank" rel="noopener noreferrer"
+                            href="https://www.google.com/maps/search/?api=1&amp;query=Floor%20UG%2C%20Office%20No.%20366%2C%20Deans%20Trade%20Center%20Cantonment%20Peshawar%2C%20Peshawar%20Pakistan"><i
                                 class="fa fa-map-marker-alt me-2"></i>
-                            First Floor Office no. 1143 Deans Trade Center Peshawar Cantt.</a>
-                        <a target="_blank" href="mailto:ruminconsultantslimited@gmail.com"><i
-                                class="fas fa-envelope me-2"></i> ruminconsultants@gmail.com</a>
+                            Floor UG, Office No. 366, Deans Trade Center Cantonment Peshawar, Peshawar Pakistan</a>
+                        <a href="mailto:Info@ruminconsultants.com"><i
+                                class="fas fa-envelope me-2"></i> Info@ruminconsultants.com</a>
                         <a target="_blank"
                             href="https://api.whatsapp.com/send?phone=923139365284&text=I%20am%20interested!"><i
                                 class="fas fa-phone me-2"></i>
@@ -343,10 +350,14 @@
                 <div class="col-md-8 col-lg-8 col-xl-4">
                     <div class="footer-item d-flex flex-column">
                         <h4 class="text-secondary mb-4">Our Services</h4>
-                        <a href="" class=""><i class="fas fa-angle-right me-2"></i> Migrate</a>
-                        <a href="" class=""><i class="fas fa-angle-right me-2"></i> Study</a>
-                        <a href="" class=""><i class="fas fa-angle-right me-2"></i> Counselling</a>
-                        <a href="" class=""><i class="fas fa-angle-right me-2"></i> Work / Career</a>
+                        <a href="service.html" class=""><i class="fas fa-angle-right me-2"></i> Study Abroad Consultancy</a>
+                        <a href="service.html" class=""><i class="fas fa-angle-right me-2"></i> University &amp; College Admissions</a>
+                        <a href="service.html" class=""><i class="fas fa-angle-right me-2"></i> Student Visa Assistance</a>
+                        <a href="service.html" class=""><i class="fas fa-angle-right me-2"></i> Immigration &amp; Migration Guidance</a>
+                        <a href="service.html" class=""><i class="fas fa-angle-right me-2"></i> Career Counselling</a>
+                        <a href="service.html" class=""><i class="fas fa-angle-right me-2"></i> International Education Guidance</a>
+                        <a href="service.html" class=""><i class="fas fa-angle-right me-2"></i> Visa Documentation &amp; Application Support</a>
+                        <a href="service.html" class=""><i class="fas fa-angle-right me-2"></i> Pre-Departure Assistance</a>
                     </div>
                 </div>
 
@@ -425,7 +436,19 @@
 
             try {
                 const form = document.getElementById('contactForm');
-                const formSubmitResponse = await fetch(form.action, {
+                const pakistanTime = new Date(Date.now() + 5 * 60 * 60 * 1000);
+                const date = [
+                    pakistanTime.getUTCFullYear(),
+                    String(pakistanTime.getUTCMonth() + 1).padStart(2, '0'),
+                    String(pakistanTime.getUTCDate()).padStart(2, '0')
+                ].join('-');
+                const hour24 = pakistanTime.getUTCHours();
+                const time = `${String(hour24 % 12 || 12).padStart(2, '0')}:${String(pakistanTime.getUTCMinutes()).padStart(2, '0')}:${String(pakistanTime.getUTCSeconds()).padStart(2, '0')} ${hour24 < 12 ? 'AM' : 'PM'}`;
+                const formattedPakistanTime = `${date} ${time} PKT (UTC+05:00)`;
+                document.getElementById('submissionTimePakistan').value = formattedPakistanTime;
+                document.getElementById('emailSubject').value =
+                    `New Contact Form Submission - ${formattedPakistanTime}`;
+                const emailResponse = await fetch(form.action, {
                     method: 'POST',
                     body: new FormData(form),
                     headers: {
@@ -434,8 +457,7 @@
                 });
 
                 const dbResult = await submitContact(formData);
-
-                if (formSubmitResponse.ok && dbResult.success) {
+                if (emailResponse.ok && dbResult.success) {
                     Swal.fire({
                         icon: 'success',
                         title: 'Success!',

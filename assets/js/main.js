@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 //More countries button
 document.addEventListener('DOMContentLoaded', function() {
-    const moreCountriesButtons = document.querySelectorAll('.btn.btn-primary.border-secondary.rounded-pill.py-3.px-5.wow.fadeInUp');
+    const moreCountriesButtons = document.querySelectorAll('.more-countries');
 
     moreCountriesButtons.forEach(button => {
         button.addEventListener('click', function(e) {
@@ -264,4 +264,3 @@ document.addEventListener('DOMContentLoaded', function() {
    
 
 })(jQuery);
-
