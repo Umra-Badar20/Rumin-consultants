@@ -44,15 +44,19 @@
               <h2 class="text-center mb-4">Admin Login</h2>
               <form @submit.prevent="login">
                 <div class="mb-3">
-                  <label for="username" class="form-label">Username</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="username"
-                    v-model="loginData.username"
-                    required
-                    :disabled="isLoading"
-                  />
+                  
+                <label for="adminEmail" class="form-label">Email Address</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="adminEmail"
+                  v-model="loginData.username"
+                  placeholder="Enter your admin email"
+                  autocomplete="username"
+                  required
+                  :disabled="isLoading"
+                />
+
                 </div>
                 <div class="mb-3">
                   <label for="password" class="form-label">Password</label>
@@ -136,6 +140,7 @@
                 <thead class="table-dark">
                   <tr>
                     <th>Name</th>
+                    <th>Phone</th>
                     <th>Age</th>
                     <th>Qualification</th>
                     <th>Percentage</th>
@@ -147,8 +152,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="inquiry in filteredInquiries" :key="inquiry._id">
+                  <tr v-for="inquiry in filteredInquiries" :key="inquiry.id">
                     <td>{{ inquiry.name }}</td>
+                    <td>{{ inquiry.phone }}</td>
                     <td>{{ inquiry.age }}</td>
                     <td>{{ inquiry.qualification }}</td>
                     <td>{{ inquiry.percentage }}</td>
@@ -179,8 +185,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-      window.__SUPABASE_URL__ = 'https://lmqcplgjlyungtbhsbvm.supabase.co';
-      window.__SUPABASE_ANON_KEY__ = 'sb_publishable_VpCG4GznhxTwyN-dBtdkbQ_oQQImFhW';
+      window.__SUPABASE_URL__ = 'https://mehmlrxrpnxrvckmbgvx.supabase.co';
+      window.__SUPABASE_ANON_KEY__ = 'sb_publishable_0fdzYopSGecI6_8AoDQF1Q_gUSEousf';
     </script>
     <script src="../supabase.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@3.2.47/dist/vue.global.min.js"></script>

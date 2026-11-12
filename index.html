@@ -3,10 +3,10 @@
 
 <head>
     <meta charset="utf-8">
-    <title>RuMin Consultants Limited</title>
+    <title>Study Abroad &amp; Student Visa Consultants in Peshawar | RuMin</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+    <meta name="description" content="RuMin Consultants provides study abroad and student visa guidance in Peshawar, Pakistan. Explore study opportunities in Cyprus, Turkey, and more.">
+    <meta name="keywords" content="study abroad consultants in Peshawar, student visa consultants Peshawar, Cyprus student visa, Turkey study visa, overseas education consultants Pakistan, RuMin Consultants">
     <link rel="icon" href="assets/img/brand-logo.png">
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,15 +33,11 @@
 
 <body>
 
-    <!-- Spinner Start -->
-    <div id="spinner"
-        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-        <div class="spinner-border text-secondary" style="width: 3rem; height: 3rem;" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
+    <div id="spinner" class="show" role="status" aria-label="Loading">
+        <img src="assets/img/brand-logo.png" alt="RuMin Consultants">
     </div>
-    <!-- Spinner End -->
 
+    
     <div class="header-sticky">
 
         <!-- Topbar Start -->
@@ -81,8 +77,7 @@
             </div>
         </div>
         <!-- Topbar End -->
-
-        <!-- Navbar & Hero Start -->
+ <!-- Navbar & Hero Start -->
         <div class="container-fluid nav-bar p-0">
             <nav class="navbar navbar-expand-lg navbar-light bg-white px-4 px-lg-5 py-3 py-lg-0">
                 <a href="./index.html" class="navbar-brand p-0">
@@ -95,11 +90,11 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
 
                     <div class="navbar-nav ms-auto py-0">
-                        <a href="index.html" class="nav-item nav-link">Home</a>
+                        <a href="index.html" class="nav-item nav-link active">Home</a>
                         <a href="about.html" class="nav-item nav-link">About</a>
                         <a href="service.html" class="nav-item nav-link">Service</a>
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link active" data-bs-toggle="dropdown"><span
+                            <a href="#" class="nav-link " data-bs-toggle="dropdown"><span
                                     class="dropdown-toggle">Pages</span></a>
                             <div class="dropdown-menu m-0">
 
@@ -117,6 +112,9 @@
             </nav>
         </div>
         <!-- Navbar & Hero End -->
+        
+       <!-- Shared Navbar -->
+
 
     </div>
     <!-- Carousel Start -->
@@ -143,8 +141,16 @@
                             </p>
                             <a class="btn btn-primary mx-3 my-2 border-secondary rounded-pill text-white py-3 px-4 wow fadeInUp"
                                 data-wow-delay="0.7s" href="./service.html" id="">View Our Services</a>
+                            
                             <a class="btn btn-primary mx-3 my-2 mb-4 border-secondary rounded-pill text-white py-3 px-4 wow fadeInUp"
-                                data-wow-delay="0.7s" href="./contact.html" id="">Get Consultation</a>
+                            data-wow-delay="0.7s"
+                            href="https://wa.me/923139365284?text=Hello%20RuMin%20Consultants%21%20I%20would%20like%20to%20book%20a%205-minute%20consultation%20call%20about%20studying%20abroad.%20Please%20let%20me%20know%20your%20available%20times."
+                            target="_blank"
+                            rel="noopener noreferrer">
+                                <i class="fab fa-whatsapp me-2" aria-hidden="true"></i>
+                                Book a 5-Minute Call
+                            </a>
+
                         </div>
 
                     </div>
@@ -165,8 +171,16 @@
                             </p>
                             <a class="btn btn-primary mx-3 my-2 border-secondary rounded-pill text-white py-3 px-4 wow fadeInUp"
                                 data-wow-delay="0.7s" href="./service.html" id="">View Our Services</a>
+                            
                             <a class="btn btn-primary mx-3 my-2 mb-4 border-secondary rounded-pill text-white py-3 px-4 wow fadeInUp"
-                                data-wow-delay="0.7s" href="./contact.html" id="">Get Consultation</a>
+                            data-wow-delay="0.7s"
+                            href="https://wa.me/923139365284?text=Hello%20RuMin%20Consultants%21%20I%20would%20like%20to%20book%20a%205-minute%20consultation%20call%20about%20studying%20abroad.%20Please%20let%20me%20know%20your%20available%20times."
+                            target="_blank"
+                            rel="noopener noreferrer">
+                                <i class="fab fa-whatsapp me-2" aria-hidden="true"></i>
+                                Book a 5-Minute Call
+                            </a>
+
                         </div>
                     </div>
                 </div>
@@ -185,25 +199,10 @@
         <!-- Carousel End -->
 
 
-        <!-- Modal Search Start -->
-        <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-fullscreen">
-                <div class="modal-content rounded-0">
-                    <div class="modal-header">
-                        <h4 class="modal-title text-secondary mb-0" id="exampleModalLabel">Search by keyword</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body d-flex align-items-center">
-                        <div class="input-group w-75 mx-auto d-flex">
-                            <input type="search" class="form-control p-3" placeholder="keywords"
-                                aria-describedby="search-icon-1">
-                            <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Modal Search End -->
+       
+<!-- Shared Eligibility Modal -->
+<div id="shared-eligibility-modal"></div>
+
 
 
 
@@ -559,7 +558,7 @@
                                     <div class="service-title">
                                         <div class="service-title-name">
                                             <div class="bg-primary text-center rounded p-3 mx-5 mb-4">
-                                                <a href="#" class="h4 text-white mb-0">Student Visa</a>
+                                                <a href="service.html" class="h4 text-white mb-0">Student Visa</a>
                                             </div>
                                             <a class="btn bg-light text-secondary rounded-pill py-3 px-5 mb-4 explore-btn"
                                                 href="./contact.html">Apply</a>
@@ -594,7 +593,7 @@
                                     <div class="service-title">
                                         <div class="service-title-name">
                                             <div class="bg-primary text-center rounded p-3 mx-5 mb-4">
-                                                <a href="#" class="h4 text-white mb-0">Vsit Visa</a>
+                                                <a href="service.html" class="h4 text-white mb-0">Visit Visa</a>
                                             </div>
                                             <a class="btn bg-light text-secondary rounded-pill py-3 px-5 mb-4 explore-btn"
                                                 href="./contact.html">Apply</a>
@@ -626,7 +625,7 @@
                                     <div class="service-title">
                                         <div class="service-title-name">
                                             <div class="bg-primary text-center rounded p-3 mx-5 mb-4">
-                                                <a href="#" class="h4 text-white mb-0">Flight Booking</a>
+                                                <a href="service.html" class="h4 text-white mb-0">Flight Booking</a>
                                             </div>
                                             <a class="btn bg-light text-secondary rounded-pill py-3 px-5 mb-4 explore-btn"
                                                 href="./contact.html">Book Now</a>
@@ -1045,6 +1044,7 @@
 
             <!-- Template Javascript -->
             <script src="assets/js/main.js"></script>
+            <script src="assets/js/components.js" defer></script>
 </body>
 
 </html>

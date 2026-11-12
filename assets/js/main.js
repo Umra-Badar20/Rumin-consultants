@@ -1,15 +1,19 @@
 (function ($) {
     "use strict";
 
-    // Spinner
-    var spinner = function () {
-        setTimeout(function () {
-            if ($('#spinner').length > 0) {
-                $('#spinner').removeClass('show');
-            }
-        }, 1);
+    const hideSpinner = function () {
+        const spinner = document.getElementById('spinner');
+
+        if (spinner) {
+            spinner.classList.remove('show');
+        }
     };
-    spinner(0);
+
+    if (document.readyState === 'complete') {
+        hideSpinner();
+    } else {
+        window.addEventListener('load', hideSpinner, { once: true });
+    }
     
     //Crousel
     document.addEventListener('DOMContentLoaded', function() {
@@ -264,3 +268,15 @@ document.addEventListener('DOMContentLoaded', function() {
    
 
 })(jQuery);
+
+
+
+
+
+
+
+
+
+
+
+

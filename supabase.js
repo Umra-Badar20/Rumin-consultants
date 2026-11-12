@@ -1,124 +1,308 @@
-const supabaseUrl = window.__SUPABASE_URL__ || 'https://lmqcplgjlyungtbhsbvm.supabase.co'
-const supabaseAnonKey = window.__SUPABASE_ANON_KEY__ || 'sb_publishable_VpCG4GznhxTwyN-dBtdkbQ_oQQImFhW'
 
-if (!window.__SUPABASE_URL__ || !window.__SUPABASE_ANON_KEY__) {
-  console.warn('Supabase credentials are missing. Add them before the script loads.')
-}
+/**
+ * RuMin Consultants
+ * Secure Supabase Integration
+ *
+ * Supabase Auth for administrators
+ * Row Level Security for database access
+ * Public contact form submissions
+ */
 
-var supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey)
+(function () {
+    'use strict';
 
-async function loginAdmin(username, password) {
-  try {
-    const safeUsername = String(username || '').trim()
-    const safePassword = String(password || '').trim()
+    // Supabase project configuration
+    // These values will be set in the next step.
+    const supabaseUrl = window.__SUPABASE_URL__;
+    const supabaseAnonKey = window.__SUPABASE_ANON_KEY__;
 
-    const { data, error } = await supabase
-      .from('admins')
-      .select('id, username, password')
-      .eq('username', safeUsername)
-      .limit(1)
-
-    if (error) {
-      throw new Error(error.message)
+    if (!supabaseUrl || !supabaseAnonKey) {
+        console.error(
+            'Supabase configuration is missing. Check the project URL and publishable key.'
+        );
+        return;
     }
 
-    const admin = Array.isArray(data) ? data[0] : data
-
-    if (!admin) {
-      throw new Error('Invalid username or password')
+    if (!window.supabase || !window.supabase.createClient) {
+        console.error('Supabase JavaScript SDK is not loaded.');
+        return;
     }
 
-    const isPasswordValid = await verifyPassword(safePassword, admin.password)
-    if (!isPasswordValid) {
-      throw new Error('Invalid username or password')
+    const supabase = window.supabase.createClient(
+        supabaseUrl,
+        supabaseAnonKey,
+        {
+            auth: {
+                autoRefreshToken: true,
+                persistSession: true,
+                detectSessionInUrl: true
+            }
+        }
+    );
+
+    // =========================================
+    // CHECK APPROVED ADMIN
+    // =========================================
+
+    async function getApprovedAdmin() {
+        const { data: authData, error: authError } =
+            await supabase.auth.getUser();
+
+        if (authError || !authData?.user) {
+            return null;
+        }
+
+        const user = authData.user;
+
+        const { data, error } = await supabase
+            .from('admin_users')
+            .select('user_id')
+            .eq('user_id', user.id)
+            .maybeSingle();
+
+        if (error) {
+            throw error;
+        }
+
+        return data ? user : null;
     }
 
-    const token = btoa(`${admin.id}:${admin.username}:${Date.now()}`)
-    localStorage.setItem('admin_token', token)
-    localStorage.setItem('admin_id', admin.id)
+    // =========================================
+    // ADMIN LOGIN
+    // =========================================
 
-    return { success: true, token, adminId: admin.id }
-  } catch (error) {
-    return { success: false, error: error.message }
-  }
-}
+    async function loginAdmin(email, password) {
+        try {
+            const safeEmail = String(email || '').trim();
+            const safePassword = String(password || '');
 
-function logoutAdmin() {
-  localStorage.removeItem('admin_token')
-  localStorage.removeItem('admin_id')
-  return { success: true }
-}
+            if (!safeEmail || !safePassword) {
+                throw new Error(
+                    'Please enter your email and password.'
+                );
+            }
 
-function getAdminToken() {
-  return localStorage.getItem('admin_token')
-}
+            const { error } =
+                await supabase.auth.signInWithPassword({
+                    email: safeEmail,
+                    password: safePassword
+                });
 
-function isAdminAuthenticated() {
-  return !!localStorage.getItem('admin_token')
-}
+            if (error) {
+                throw error;
+            }
 
-async function submitContact(contactData) {
-  try {
-    const safeAge = Number.parseInt(contactData.age, 10)
-    
-    // Truncate fields to match database schema constraints
-    const payload = {
-      name: String(contactData.name || '').trim().substring(0, 50),
-      phone: String(contactData.phone || '').trim().substring(0, 20),
-      age: Number.isNaN(safeAge) ? null : safeAge,
-      qualification: String(contactData.qualification || '').trim().substring(0, 100),
-      percentage: String(contactData.percentage || '').trim().substring(0, 10),
-      english_test: String(contactData.englishTest || '').trim().substring(0, 100),
-      country: String(contactData.country || '').trim().substring(0, 50),
-      message: String(contactData.message || '').trim().substring(0, 500)
+            const admin = await getApprovedAdmin();
+
+            if (!admin) {
+                await supabase.auth.signOut();
+
+                throw new Error(
+                    'Access denied. This account is not an authorized administrator.'
+                );
+            }
+
+            return {
+                success: true,
+                adminId: admin.id,
+                email: admin.email
+            };
+
+        } catch (error) {
+            return {
+                success: false,
+                error: error.message
+            };
+        }
     }
 
-    const { data, error } = await supabase
-      .from('contacts')
-      .insert([payload])
-      .select()
+    // =========================================
+    // ADMIN LOGOUT
+    // =========================================
 
-    if (error) throw error
+    async function logoutAdmin() {
+        try {
+            const { error } = await supabase.auth.signOut();
 
-    return { success: true, data: data && data[0] ? data[0] : null }
-  } catch (error) {
-    return { success: false, error: error.message }
-  }
-}
+            if (error) throw error;
 
-async function getContacts() {
-  try {
-    const isAuth = isAdminAuthenticated()
-    if (!isAuth) {
-      throw new Error('Unauthorized')
+            // Clean up tokens created by the old login system
+            localStorage.removeItem('admin_token');
+            localStorage.removeItem('admin_id');
+
+            return { success: true };
+
+        } catch (error) {
+            return {
+                success: false,
+                error: error.message
+            };
+        }
     }
 
-    const { data, error } = await supabase
-      .from('contacts')
-      .select('*')
-      .order('created_at', { ascending: false })
+    // =========================================
+    // CHECK ADMIN SESSION
+    // =========================================
 
-    if (error) throw error
+    async function isAdminAuthenticated() {
+        try {
+            const admin = await getApprovedAdmin();
+            return Boolean(admin);
+        } catch (error) {
+            console.error('Authentication check failed:', error);
+            return false;
+        }
+    }
 
-    return { success: true, data }
-  } catch (error) {
-    return { success: false, error: error.message }
-  }
-}
+    // =========================================
+    // SUBMIT CONTACT FORM
+    // =========================================
 
-async function verifyPassword(password, hash) {
-  return String(password || '').trim() === String(hash || '').trim()
-}
+    async function submitContact(contactData) {
+        try {
+            const safeAge =
+                Number.parseInt(contactData.age, 10);
 
-window.ruminSupabase = {
-  supabase,
-  loginAdmin,
-  logoutAdmin,
-  getAdminToken,
-  isAdminAuthenticated,
-  submitContact,
-  getContacts,
-  verifyPassword
-}
+            const payload = {
+                name: String(contactData.name || '')
+                    .trim()
+                    .substring(0, 50),
 
-window.supabaseClient = supabase
+                phone: String(contactData.phone || '')
+                    .trim()
+                    .substring(0, 20),
+
+                age: Number.isNaN(safeAge)
+                    ? null
+                    : safeAge,
+
+                qualification: String(
+                    contactData.qualification || ''
+                ).trim().substring(0, 100),
+
+                percentage: String(
+                    contactData.percentage || ''
+                ).trim().substring(0, 10),
+
+                english_test: String(
+                    contactData.englishTest || ''
+                ).trim().substring(0, 100),
+
+                country: String(contactData.country || '')
+                    .trim()
+                    .substring(0, 50),
+
+                message: String(contactData.message || '')
+                    .trim()
+                    .substring(0, 500)
+            };
+
+            // Do not use .select() here.
+            // Public users have INSERT permission only.
+            const { error } = await supabase
+                .from('contacts')
+                .insert([payload]);
+
+            if (error) throw error;
+
+            return {
+                success: true
+            };
+
+        } catch (error) {
+            console.error('Contact submission failed:', error);
+
+            return {
+                success: false,
+                error: error.message
+            };
+        }
+    }
+
+    // =========================================
+    // FETCH CONTACT ENQUIRIES
+    // =========================================
+
+    async function getContacts() {
+        try {
+            const admin = await getApprovedAdmin();
+
+            if (!admin) {
+                throw new Error('Unauthorized');
+            }
+
+            const { data, error } = await supabase
+                .from('contacts')
+                .select('*')
+                .order('created_at', {
+                    ascending: false
+                });
+
+            if (error) throw error;
+
+            return {
+                success: true,
+                data: data || []
+            };
+
+        } catch (error) {
+            return {
+                success: false,
+                error: error.message
+            };
+        }
+    }
+
+    // =========================================
+    // DELETE CONTACT ENQUIRY
+    // =========================================
+
+    async function deleteContact(id) {
+        try {
+            const admin = await getApprovedAdmin();
+
+            if (!admin) {
+                throw new Error('Unauthorized');
+            }
+
+            const { data, error } = await supabase
+                .from('contacts')
+                .delete()
+                .eq('id', id)
+                .select('id');
+
+            if (error) throw error;
+
+            if (!data || data.length === 0) {
+                throw new Error(
+                    'Enquiry was not deleted. Check permissions.'
+                );
+            }
+
+            return { success: true };
+
+        } catch (error) {
+            return {
+                success: false,
+                error: error.message
+            };
+        }
+    }
+
+    // =========================================
+    // GLOBAL EXPORTS
+    // =========================================
+
+    window.ruminSupabase = {
+        supabase,
+        loginAdmin,
+        logoutAdmin,
+        isAdminAuthenticated,
+        submitContact,
+        getContacts,
+        deleteContact
+    };
+
+    window.supabaseClient = supabase;
+
+})();

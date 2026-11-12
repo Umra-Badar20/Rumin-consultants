@@ -1,17 +1,26 @@
 
 /*** Spinner Start ***/
 /*** Spinner ***/
-html, body {
+html {
     overflow-x: hidden;
     width: 100%;
-}
-html {
     box-sizing: border-box;
 }
 
+body {
+    width: 100%;
+}
+
 #spinner {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bs-white);
     opacity: 0;
     visibility: hidden;
+    pointer-events: none;
     transition: opacity .5s ease-out, visibility 0s linear .5s;
     z-index: 99999;
 }
@@ -20,6 +29,27 @@ html {
     transition: opacity .5s ease-out, visibility 0s linear 0s;
     visibility: visible;
     opacity: 1;
+    pointer-events: auto;
+}
+
+#spinner img {
+    width: min(42vw, 170px);
+    max-height: 120px;
+    object-fit: contain;
+    animation: logo-loader-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes logo-loader-pulse {
+    50% {
+        opacity: .6;
+        transform: scale(.95);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #spinner img {
+        animation: none;
+    }
 }
 /*** Spinner End ***/
 
@@ -1114,4 +1144,67 @@ html {
     color: #34495e;
     font-size: 1.1rem;
     line-height: 1.6;
+}
+
+
+
+
+
+
+
+
+/* ========================================
+   FREE ELIGIBILITY CHECK MODAL
+======================================== */
+
+#searchModal .modal-content {
+    background-color: #ffffff !important;
+    opacity: 1 !important;
+    border-radius: 16px !important;
+    overflow: hidden;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.20) !important;
+}
+
+#searchModal .modal-header {
+    background-color: #ffffff !important;
+    padding: 24px 30px;
+}
+
+#searchModal .modal-body {
+    background-color: #ffffff !important;
+}
+
+#searchModal .modal-title {
+    font-weight: 700;
+}
+
+#searchModal .form-select {
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+}
+
+#searchModal .form-select:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.12);
+}
+
+#searchModal .modal-dialog {
+    max-width: 700px;
+    margin: 1.75rem auto;
+}
+
+@media (max-width: 767px) {
+    #searchModal .modal-dialog {
+        max-width: calc(100% - 24px);
+        margin: 12px auto;
+    }
+
+    #searchModal .modal-header {
+        padding: 20px;
+    }
+
+    #searchModal .modal-body {
+        padding: 20px !important;
+    }
 }
